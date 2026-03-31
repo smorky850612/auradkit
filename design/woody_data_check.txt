@@ -1,0 +1,41 @@
+COUNT: 40
+SLUG: progressive-disclosure | TERM: Progressive Disclosure | KOR: 단계적 노출 | CAT: UX 전략
+SLUG: grid-system | TERM: Grid System | KOR: 그리드 시스템 | CAT: 레이아웃 & 구조
+SLUG: visual-hierarchy | TERM: Visual Hierarchy | KOR: 시각적 위계 | CAT: 레이아웃 & 구조
+SLUG: sticky-cta | TERM: Sticky CTA | KOR: 고정 CTA | CAT: 컴포넌트
+SLUG: empty-state | TERM: Empty State | KOR: 빈 상태 | CAT: 상태 & 피드백
+SLUG: skeleton-screen | TERM: Skeleton Screen | KOR: 스켈레톤 스크린 | CAT: 상태 & 피드백
+SLUG: trust-signal | TERM: Trust Signal | KOR: 신뢰 요소 | CAT: 커머스 패턴
+SLUG: inline-validation | TERM: Inline Validation | KOR: 인라인 유효성 검사 | CAT: 입력 & 폼
+SLUG: bottom-sheet | TERM: Bottom Sheet | KOR: 바텀 시트 | CAT: 모바일 패턴
+SLUG: data-table | TERM: Data Table | KOR: 데이터 테이블 | CAT: 데이터 표시
+SLUG: cognitive-load | TERM: Cognitive Load | KOR: 인지 부하 | CAT: UX 전략
+SLUG: accessibility | TERM: Accessibility | KOR: 접근성 | CAT: 접근성
+SLUG: design-tokens | TERM: Design Tokens | KOR: 디자인 토큰 | CAT: 디자인 시스템
+SLUG: cta-hierarchy | TERM: CTA Hierarchy | KOR: CTA 위계 | CAT: 컴포넌트
+SLUG: onboarding | TERM: Onboarding | KOR: 온보딩 | CAT: 성장 패턴
+SLUG: flexbox | TERM: Flexbox | KOR: 플렉스박스 | CAT: 레이아웃 & 구조
+SLUG: error-prevention | TERM: Error Prevention | KOR: 오류 예방 | CAT: UX 전략
+SLUG: density-control | TERM: Density Control | KOR: 밀도 조절 | CAT: SaaS / 어드민 패턴
+SLUG: information-architecture | TERM: Information Architecture | KOR: 정보 구조 | CAT: UX 전략
+SLUG: social-proof | TERM: Social Proof | KOR: 사회적 증거 | CAT: 커머스 패턴
+SLUG: focus-state | TERM: Focus State | KOR: 포커스 상태 | CAT: 접근성
+SLUG: handoff | TERM: Handoff | KOR: 핸드오프 | CAT: 협업 & 핸드오프
+SLUG: microcopy | TERM: Microcopy | KOR: 마이크로카피 | CAT: UX 라이팅 / 마이크로카피
+SLUG: component-library | TERM: Component Library | KOR: 컴포넌트 라이브러리 | CAT: 디자인 시스템
+SLUG: filter-and-sort | TERM: Filter and Sort | KOR: 필터 및 정렬 | CAT: 데이터 표시
+SLUG: bulk-action | TERM: Bulk Action | KOR: 일괄 작업 | CAT: SaaS / 어드민 패턴
+SLUG: coach-mark | TERM: Coach Mark | KOR: 코치마크 | CAT: 성장 패턴
+SLUG: form-simplification | TERM: Form Simplification | KOR: 폼 간소화 | CAT: 입력 & 폼
+SLUG: confirmation-pattern | TERM: Confirmation Pattern | KOR: 확인 패턴 | CAT: 상태 & 피드백
+SLUG: sticky-header | TERM: Sticky Header | KOR: 고정 헤더 | CAT: 내비게이션
+SLUG: progressive-loading | TERM: Progressive Loading | KOR: 점진적 로딩 | CAT: 상태 & 피드백
+SLUG: search-suggestion | TERM: Search Suggestion | KOR: 검색 제안 | CAT: 내비게이션
+SLUG: permission-request | TERM: Permission Request | KOR: 권한 요청 | CAT: 모바일 패턴
+SLUG: activation-point | TERM: Activation Point | KOR: 활성화 지점 | CAT: 지표 & 프로덕트 사고
+SLUG: friction-point | TERM: Friction Point | KOR: 마찰 지점 | CAT: 지표 & 프로덕트 사고
+SLUG: proxy-metric | TERM: Proxy Metric | KOR: 대리 지표 | CAT: 지표 & 프로덕트 사고
+SLUG: funnel-drop-off | TERM: Funnel Drop-off | KOR: 퍼널 이탈 | CAT: 성장 패턴
+SLUG: retention-hook | TERM: Retention Hook | KOR: 리텐션 후크 | CAT: 성장 패턴
+SLUG: review-summary | TERM: Review Summary | KOR: 검토 요약 | CAT: 상태 & 피드백
+SLUG: empty-data-handling | TERM: Empty Data Handling | KOR: 빈 데이터 처리 | CAT: 상태 & 피드백

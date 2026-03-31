@@ -1,0 +1,56 @@
+# ============================================================
+# AuraDKit — .gitignore
+# 학습 데이터(크롤링 결과)는 로컬 전용 자산 — 절대 커밋 금지
+# ============================================================
+
+# ── 크롤링 데이터 (로컬 전용) ────────────────────────────────
+knowledge-base/analysis/
+knowledge-base/screenshots/
+knowledge-base/cache/
+knowledge-base/index.json
+
+# ── 트레이너 (npm 전용 — GitHub 제외) ────────────────────────
+trainer/
+
+# ── Node 의존성 ──────────────────────────────────────────────
+node_modules/
+trainer/node_modules/
+.pnp
+.pnp.js
+.yarn/cache
+.yarn/unplugged
+.yarn/build-state.yml
+.yarn/install-state.gz
+
+# ── 빌드 출력 ────────────────────────────────────────────────
+trainer/dist/
+trainer/build/
+*.tsbuildinfo
+
+# ── 환경 변수 ────────────────────────────────────────────────
+.env
+.env.*
+!.env.example
+
+# ── AuraKit 런타임 (로컬 전용) ───────────────────────────────
+.aura/
+
+# ── OS / 에디터 ──────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.idea/
+.vscode/
+
+# ── Playwright ────────────────────────────────────────────────
+playwright-report/
+test-results/
+
+# ── 로그 ─────────────────────────────────────────────────────
+*.log
+logs/
+trainer/logs/
+
+# ── Compile 출력 (generate되는 파일 — 선택적 git 포함)
+# .claude/skills/auradkit/  ← git에 포함 허용 (compile 결과물)
