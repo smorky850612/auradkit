@@ -52,5 +52,8 @@ test-results/
 logs/
 trainer/logs/
 
+# ── 루트 npm 잔여 파일 ──────────────────────────────────────
+package-lock.json
+
 # ── Compile 출력 (generate되는 파일 — 선택적 git 포함)
 # .claude/skills/auradkit/  ← git에 포함 허용 (compile 결과물)

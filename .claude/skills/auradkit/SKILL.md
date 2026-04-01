@@ -1,5 +1,5 @@
 <!-- AURADKIT ACTIVE -->
-# AuraDKit Design Intelligence v5.0
+# AuraDKit Design Intelligence v5.0.1
 
 > Generated from 126 analyzed sites | Avg score: 7.1/10 | Drift: 22/100 | AI-Slop: 7/100
 > Reference sites: astro.build, docs.github.com, docs.anthropic.com, anthropic.com, bun.sh, deno.com, lovable.dev, magicui.design
@@ -196,5 +196,5 @@ Never: `<div onclick>` → use `<button>` or `<a href>`
 
 ---
 
-*AuraDKit v5.0 · 2026-03-31 · 126 sites analyzed*
+*AuraDKit v5.0.1 · 2026-03-31 · 126 sites analyzed*
 <!-- /AURADKIT ACTIVE -->

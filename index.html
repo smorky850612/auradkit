@@ -1,513 +1,412 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>AuraDKit — 학습 기반 디자인 지능 엔진</title>
-<meta name="description" content="50개 이상의 Awwwards급 사이트를 7축으로 분석하고, 한 줄 명령으로 역대급 UI를 생성합니다."/>
-<meta property="og:title" content="AuraDKit"/>
-<meta property="og:description" content="학습 기반 디자인 지능 엔진"/>
+<title>AuraDKit — Design Intelligence for Claude Code</title>
+<meta name="description" content="Generate pixel-perfect, accessible, production-ready UI components with a single prompt. The design skill Claude Code has been missing."/>
+<meta name="theme-color" content="#07050e"/>
+<meta property="og:title" content="AuraDKit — Design Intelligence for Claude Code"/>
+<meta property="og:description" content="S-Grade UI components. Your framework. Your tokens. One prompt."/>
 <meta property="og:type" content="website"/>
-<meta name="theme-color" content="#0d0a18"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet"/>
-<style>
-:root{
-  --bg:#0d0a18;--bg2:#110d20;--card:rgba(255 255 255/.04);
-  --border:rgba(255 255 255/.08);--border-hi:rgba(167 139 250/.35);
-  --p:#a78bfa;--p-dim:rgba(167 139 250/.14);--p-glow:rgba(167 139 250/.4);
-  --c:#22d3ee;--c-dim:rgba(34 211 238/.12);
-  --pk:#f472b6;--gr:#34d399;--or:#fb923c;--bl:#60a5fa;
-  --tx:#f1f0fc;--mu:#8b89a8;
-  --f:'Inter',system-ui,sans-serif;--m:'JetBrains Mono','Fira Code',monospace;
-  --ease:cubic-bezier(.4,0,.2,1);
-}
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{font-family:var(--f);background:var(--bg);color:var(--tx);line-height:1.6;overflow-x:hidden;
-  background-image:radial-gradient(rgba(167 139 250/.07) 1px,transparent 1px);
-  background-size:32px 32px}
-a{color:inherit;text-decoration:none}
-
-/* orbs */
-.orbs{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
-.orb{position:absolute;border-radius:50%;filter:blur(80px);animation:fl 22s ease-in-out infinite}
-.o1{width:700px;height:700px;background:radial-gradient(circle,rgba(167,139,250,.18) 0%,transparent 70%);
-    top:-250px;left:-150px;animation-delay:0s}
-.o2{width:500px;height:500px;background:radial-gradient(circle,rgba(34,211,238,.13) 0%,transparent 70%);
-    top:25%;right:-120px;animation-delay:-8s}
-.o3{width:450px;height:450px;background:radial-gradient(circle,rgba(244,114,182,.10) 0%,transparent 70%);
-    bottom:5%;left:15%;animation-delay:-15s}
-@keyframes fl{
-  0%,100%{transform:translate(0,0) scale(1)}
-  33%{transform:translate(40px,-60px) scale(1.06)}
-  66%{transform:translate(-30px,40px) scale(.94)}
-}
-
-/* layout */
-.wrap{max-width:1100px;margin-inline:auto;padding-inline:24px}
-.rel{position:relative;z-index:1}
-
-/* nav */
-nav{position:fixed;top:0;left:0;right:0;z-index:100;height:60px;
-    backdrop-filter:blur(20px) saturate(180%);
-    background:rgba(13,10,24,.75);border-bottom:1px solid var(--border)}
-.nav-i{display:flex;align-items:center;justify-content:space-between;height:60px}
-.logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:1.05rem;letter-spacing:-.02em}
-.logo-sq{width:30px;height:30px;border-radius:7px;
-          background:linear-gradient(135deg,var(--p),var(--c));
-          display:grid;place-items:center;font-size:.85rem;flex-shrink:0}
-.nav-r{display:flex;align-items:center;gap:8px}
-.badge{display:flex;align-items:center;gap:5px;padding:5px 11px;border-radius:6px;
-       font-size:.78rem;font-weight:500;color:var(--mu);
-       border:1px solid var(--border);transition:all .2s var(--ease)}
-.badge:hover{color:var(--tx);border-color:var(--border-hi);background:var(--p-dim)}
-.ver{padding:3px 10px;background:var(--p-dim);color:var(--p);
-     border-radius:20px;font-size:.72rem;font-weight:700;font-family:var(--m)}
-
-/* hero */
-.hero{min-height:100dvh;display:flex;flex-direction:column;
-      align-items:center;justify-content:center;text-align:center;
-      padding:120px 24px 80px}
-.eyebrow{display:inline-flex;align-items:center;gap:8px;padding:5px 14px;
-         border:1px solid rgba(167,139,250,.3);border-radius:20px;
-         background:var(--p-dim);color:var(--p);
-         font-size:.75rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
-         margin-bottom:28px;animation:fu .6s ease both}
-.edot{width:6px;height:6px;background:var(--p);border-radius:50%;
-      animation:pu 2s ease-in-out infinite}
-@keyframes pu{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.6)}}
-
-h1{font-size:clamp(2.8rem,7.5vw,5.5rem);font-weight:900;letter-spacing:-.04em;
-   line-height:1.02;margin-bottom:24px;animation:fu .6s .1s ease both}
-.gt{background:linear-gradient(135deg,var(--p) 0%,var(--c) 45%,var(--pk) 100%);
-    -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
-    background-size:200% auto;animation:sh 4s linear infinite}
-@keyframes sh{to{background-position:200% center}}
-
-.sub{font-size:clamp(.95rem,2.2vw,1.2rem);color:var(--mu);max-width:540px;
-     margin-bottom:44px;line-height:1.75;animation:fu .6s .2s ease both}
-.sub strong{color:var(--tx)}
-
-.cta{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;
-     margin-bottom:52px;animation:fu .6s .3s ease both}
-.btn-p{display:inline-flex;align-items:center;gap:8px;padding:13px 26px;
-       background:linear-gradient(135deg,var(--p),#7c3aed);color:#fff;
-       font-weight:600;font-size:.93rem;border-radius:10px;border:none;cursor:pointer;
-       transition:all .25s var(--ease);box-shadow:0 0 30px var(--p-glow)}
-.btn-p:hover{transform:translateY(-2px);box-shadow:0 0 50px var(--p-glow)}
-.btn-o{display:inline-flex;align-items:center;gap:8px;padding:13px 26px;
-       background:transparent;color:var(--tx);font-weight:600;font-size:.93rem;
-       border-radius:10px;border:1px solid var(--border);cursor:pointer;
-       transition:all .25s var(--ease)}
-.btn-o:hover{border-color:var(--border-hi);background:var(--p-dim);transform:translateY(-2px)}
-
-/* terminal */
-.term{width:100%;max-width:580px;background:rgba(0,0,0,.55);
-      border:1px solid var(--border);border-radius:16px;overflow:hidden;
-      backdrop-filter:blur(12px);text-align:left;
-      animation:fu .6s .4s ease both}
-.tbar{display:flex;align-items:center;gap:6px;padding:11px 16px;
-      border-bottom:1px solid var(--border);background:rgba(255,255,255,.03)}
-.dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
-.dr{background:#ff5f57}.dy{background:#febc2e}.dg{background:#28c840}
-.ttl{margin-left:8px;font-size:.73rem;color:var(--mu);font-family:var(--m)}
-.tbody{padding:18px 20px;font-family:var(--m);font-size:.8rem;line-height:1.9;min-height:180px}
-.tp{color:var(--c)}.tok{color:var(--gr)}.ti{color:var(--mu)}.ts{color:var(--p)}
-.cur{display:inline-block;width:7px;height:1.1em;background:var(--c);
-     vertical-align:middle;animation:bl .8s step-end infinite}
-@keyframes bl{50%{opacity:0}}
-
-/* stats */
-.sbar{padding:28px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
-.sgrid{display:flex;justify-content:center;gap:60px;flex-wrap:wrap}
-.stat{text-align:center}
-.sv{font-size:2.4rem;font-weight:800;letter-spacing:-.04em;font-family:var(--m);
-    background:linear-gradient(135deg,var(--p),var(--c));
-    -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
-.sl{font-size:.82rem;color:var(--mu);margin-top:4px}
-
-/* sections */
-section{padding:96px 0}
-.slabel{display:inline-block;font-size:.72rem;font-weight:700;letter-spacing:.1em;
-        text-transform:uppercase;color:var(--p);margin-bottom:12px}
-.stitle{font-size:clamp(1.7rem,3.8vw,2.6rem);font-weight:800;letter-spacing:-.03em;
-        line-height:1.1;margin-bottom:12px}
-.sdesc{font-size:1rem;color:var(--mu);max-width:520px;line-height:1.7}
-
-/* pipeline */
-.pipe-g{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;
-        gap:0;align-items:start;margin-top:56px}
-.parr{display:flex;align-items:flex-start;padding-top:34px;
-      color:var(--p);font-size:1.4rem;opacity:.4;padding-inline:12px}
-.pcard{background:var(--card);border:1px solid var(--border);
-       border-radius:16px;padding:28px 24px;
-       transition:all .28s var(--ease);position:relative;overflow:hidden}
-.pcard::after{content:'';position:absolute;inset:0;
-              background:linear-gradient(135deg,transparent 55%,rgba(167,139,250,.04));
-              pointer-events:none}
-.pcard:hover{border-color:var(--border-hi);transform:translateY(-5px);
-             box-shadow:0 24px 64px rgba(0,0,0,.35),0 0 0 1px rgba(167,139,250,.08)}
-.pn{font-size:.7rem;font-weight:700;font-family:var(--m);color:var(--p);
-    letter-spacing:.1em;margin-bottom:14px}
-.pic{font-size:1.8rem;margin-bottom:14px}
-.pt{font-size:1.1rem;font-weight:700;margin-bottom:8px}
-.pd{font-size:.86rem;color:var(--mu);line-height:1.6}
-.pc{margin-top:14px;padding:9px 13px;background:rgba(0,0,0,.35);
-    border-radius:7px;font-family:var(--m);font-size:.75rem;color:var(--c);
-    border:1px solid var(--border)}
-
-/* axes */
-.axes-g{display:grid;grid-template-columns:repeat(auto-fill,minmax(215px,1fr));
-        gap:14px;margin-top:52px}
-.acard{background:var(--card);border:1px solid var(--border);
-       border-radius:12px;padding:22px;transition:all .25s var(--ease)}
-.acard:hover{border-color:var(--border-hi);transform:translateY(-2px)}
-.aico{width:38px;height:38px;border-radius:9px;display:grid;
-      place-items:center;font-size:1.1rem;margin-bottom:14px}
-.aname{font-size:.88rem;font-weight:600;margin-bottom:2px}
-.aen{font-size:.72rem;color:var(--mu);margin-bottom:14px;font-family:var(--m)}
-.abg{height:4px;background:rgba(255,255,255,.07);border-radius:2px;overflow:hidden}
-.abar{height:100%;border-radius:2px;transform-origin:left;
-      transform:scaleX(0);transition:transform 1.1s cubic-bezier(.4,0,.2,1)}
-.abar.on{transform:scaleX(1)}
-.ascr{margin-top:7px;font-family:var(--m);font-size:.75rem;color:var(--mu)}
-
-/* demo terminal */
-.dterm{margin-top:52px;background:rgba(0,0,0,.55);border:1px solid var(--border);
-       border-radius:16px;overflow:hidden;backdrop-filter:blur(12px)}
-.dbar{display:flex;align-items:center;justify-content:space-between;
-      padding:13px 18px;border-bottom:1px solid var(--border);background:rgba(255,255,255,.03)}
-.ddots{display:flex;gap:6px}
-.dtl{font-size:.73rem;color:var(--mu);font-family:var(--m)}
-.dbody{padding:22px;font-family:var(--m);font-size:.81rem;line-height:1.9;min-height:280px}
-
-/* install */
-.inst{text-align:center;padding:112px 0}
-.ibox{display:inline-flex;align-items:center;gap:14px;padding:15px 22px;
-      background:rgba(0,0,0,.45);border:1px solid var(--border);
-      border-radius:12px;font-family:var(--m);font-size:1rem;
-      margin:36px 0;transition:all .25s var(--ease);cursor:pointer}
-.ibox:hover{border-color:var(--border-hi);background:var(--p-dim)}
-.icmd{color:var(--c)}
-.cpbtn{padding:4px 10px;background:var(--p-dim);border:1px solid rgba(167,139,250,.3);
-       border-radius:6px;color:var(--p);font-size:.7rem;font-weight:700;
-       cursor:pointer;transition:all .2s var(--ease);font-family:var(--f)}
-.cpbtn:hover{background:rgba(167,139,250,.25)}
-
-/* footer */
-footer{border-top:1px solid var(--border);padding:36px 0}
-.fi{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
-.fc{font-size:.81rem;color:var(--mu)}
-.fl{display:flex;gap:20px}
-.fl a{font-size:.81rem;color:var(--mu);transition:color .2s var(--ease)}
-.fl a:hover{color:var(--p)}
-
-/* reveal */
-@keyframes fu{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
-.rv{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease}
-.rv.on{opacity:1;transform:translateY(0)}
-
-/* responsive */
-@media(max-width:768px){
-  .pipe-g{grid-template-columns:1fr}
-  .parr{display:none}
-  .sgrid{gap:28px}
-}
-@media(prefers-reduced-motion:reduce){
-  *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
-}
-:focus-visible{outline:2px solid var(--p);outline-offset:4px}
-</style>
+<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="style.css"/>
 </head>
 <body>
 
-<div class="orbs" aria-hidden="true">
-  <div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div>
-</div>
-
-<nav>
-  <div class="wrap"><div class="nav-i">
-    <a href="/" class="logo">
-      <div class="logo-sq" aria-hidden="true">✦</div>AuraDKit
+<!-- ═══ NAV ════════════════════════════════════════════════════ -->
+<nav class="nav" id="nav">
+  <div class="wrap nav-inner">
+    <a class="logo" href="#">
+      <svg class="logo-svg" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+        <defs>
+          <linearGradient id="lgN" x1="0" y1="0" x2="28" y2="28" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#a78bfa"/><stop offset="1" stop-color="#22d3ee"/>
+          </linearGradient>
+        </defs>
+        <polygon points="14,1 27,14 14,27 1,14" stroke="url(#lgN)" stroke-width="1.5" fill="none"/>
+        <polygon points="14,7 21,14 14,21 7,14" stroke="url(#lgN)" stroke-width="1" fill="none" opacity=".4"/>
+        <circle cx="14" cy="14" r="3" fill="url(#lgN)"/>
+      </svg>
+      <span class="logo-name">AuraDKit</span>
     </a>
-    <div class="nav-r">
-      <span class="ver">v5.0.0</span>
-      <a href="https://github.com/smorky85/auradkit" class="badge" target="_blank" rel="noopener" aria-label="GitHub 저장소">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
-        GitHub
-      </a>
-      <a href="https://www.npmjs.com/package/auradkit-trainer" class="badge" target="_blank" rel="noopener" aria-label="npm 패키지">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M0 0v24h24V0H0zm6 18V6h4v9h3V6h3v12H6z"/></svg>
-        npm
-      </a>
+
+    <div class="nav-links" id="navLinks">
+      <a class="nav-a" href="#features" data-i18n="nav_features">Features</a>
+      <a class="nav-a" href="#showcase" data-i18n="nav_showcase">Showcase</a>
+      <a class="nav-a" href="#how" data-i18n="nav_how">How it works</a>
     </div>
-  </div></div>
+
+    <div class="nav-end">
+      <div class="lang-pick" id="langPicker">
+        <button class="lang-trigger" id="langBtn" aria-haspopup="listbox" aria-expanded="false">
+          <span id="langFlag">🇺🇸</span>
+          <span id="langCode">EN</span>
+          <svg class="lang-chev" width="9" height="5" viewBox="0 0 9 5" fill="none" aria-hidden="true">
+            <path d="M1 1l3.5 3L8 1" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <div class="lang-drop" id="langMenu" role="listbox">
+          <button class="lang-opt selected" data-lang="en" data-flag="🇺🇸" role="option" aria-selected="true">🇺🇸 English</button>
+          <button class="lang-opt" data-lang="ko" data-flag="🇰🇷" role="option">🇰🇷 한국어</button>
+          <button class="lang-opt" data-lang="ja" data-flag="🇯🇵" role="option">🇯🇵 日本語</button>
+          <button class="lang-opt" data-lang="zh" data-flag="🇨🇳" role="option">🇨🇳 中文</button>
+          <button class="lang-opt" data-lang="es" data-flag="🇪🇸" role="option">🇪🇸 Español</button>
+          <button class="lang-opt" data-lang="fr" data-flag="🇫🇷" role="option">🇫🇷 Français</button>
+          <button class="lang-opt" data-lang="de" data-flag="🇩🇪" role="option">🇩🇪 Deutsch</button>
+          <button class="lang-opt" data-lang="it" data-flag="🇮🇹" role="option">🇮🇹 Italiano</button>
+        </div>
+      </div>
+      <a class="btn-nav" href="#install" data-i18n="nav_cta">Install</a>
+      <button class="ham" id="ham" aria-label="Menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
 </nav>
 
-<header class="hero rel">
-  <div class="wrap">
-    <div class="eyebrow"><span class="edot" aria-hidden="true"></span>Claude Code Skill · Design Intelligence</div>
-    <h1><span class="gt">디자인을 학습하고<br>지능을 압축한다</span></h1>
-    <p class="sub">
-      <strong>50개 이상의 Awwwards급 사이트</strong>를 7축으로 정밀 분석하고<br>
-      그 지식을 SKILL.md에 압축합니다.<br>
-      한 줄 명령으로 역대급 UI를 생성하세요.
+<!-- ═══ HERO — full-viewport 3D ════════════════════════════════ -->
+<section class="hero" id="hero">
+  <canvas class="hero-canvas" id="threeCanvas" aria-hidden="true"></canvas>
+  <div class="hero-veil" aria-hidden="true"></div>
+  <div class="wrap hero-body">
+    <p class="hero-eyebrow">
+      <span class="pulse-dot" aria-hidden="true"></span>
+      <span data-i18n="hero_badge">Claude Code Skill</span>
     </p>
-    <div class="cta">
-      <a href="#install" class="btn-p">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-        지금 시작하기
-      </a>
-      <a href="https://github.com/smorky85/auradkit" class="btn-o" target="_blank" rel="noopener">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
-        GitHub
-      </a>
-    </div>
-    <div class="term" role="region" aria-label="터미널 데모">
-      <div class="tbar">
-        <span class="dot dr" aria-hidden="true"></span><span class="dot dy" aria-hidden="true"></span><span class="dot dg" aria-hidden="true"></span>
-        <span class="ttl">auradkit-trainer — zsh</span>
-      </div>
-      <div class="tbody" id="ht" aria-live="polite"></div>
+    <h1 class="hero-h1" data-i18n-html="hero_h1">Design<br/>intelligence<br/><em class="grad">for Claude Code</em></h1>
+    <p class="hero-p" data-i18n="hero_p">AuraDKit generates pixel-perfect, accessible, production-ready UI — in your framework, with your tokens, in seconds.</p>
+    <div class="hero-acts">
+      <a class="btn-primary" href="#install" data-i18n="hero_cta">Install the Skill</a>
+      <a class="btn-ghost" href="#showcase" data-i18n="hero_cta2">See Components</a>
     </div>
   </div>
-</header>
+  <div class="scroll-cue" aria-hidden="true"><div class="sc-line"></div></div>
+</section>
 
-<div class="sbar rel">
-  <div class="wrap"><div class="sgrid">
-    <div class="stat"><div class="sv" data-cnt="50">0</div><div class="sl">레퍼런스 사이트</div></div>
-    <div class="stat"><div class="sv" data-cnt="7">0</div><div class="sl">디자인 분석 축</div></div>
-    <div class="stat"><div class="sv" data-cnt="15">0</div><div class="sl">추출 디자인 원칙</div></div>
-    <div class="stat"><div class="sv">∞</div><div class="sl">생성 가능 UI</div></div>
-  </div></div>
+<!-- ═══ MARQUEE ═════════════════════════════════════════════════ -->
+<div class="marquee-wrap" aria-hidden="true">
+  <div class="marquee-track">
+    <span class="m-txt">126 Sites Analyzed</span><span class="m-dot">·</span>
+    <span class="m-txt">7 Design Axes</span><span class="m-dot">·</span>
+    <span class="m-txt">WCAG AA Validated</span><span class="m-dot">·</span>
+    <span class="m-txt accent">React</span><span class="m-dot">·</span>
+    <span class="m-txt accent">Next.js</span><span class="m-dot">·</span>
+    <span class="m-txt accent">Vue</span><span class="m-dot">·</span>
+    <span class="m-txt accent">Svelte</span><span class="m-dot">·</span>
+    <span class="m-txt accent">Astro</span><span class="m-dot">·</span>
+    <span class="m-txt accent">Nuxt</span><span class="m-dot">·</span>
+    <span class="m-txt accent">SolidJS</span><span class="m-dot">·</span>
+    <span class="m-txt">4 Component States</span><span class="m-dot">·</span>
+    <span class="m-txt">8 Languages</span><span class="m-dot">·</span>
+    <!-- duplicate for seamless loop -->
+    <span class="m-txt">126 Sites Analyzed</span><span class="m-dot">·</span>
+    <span class="m-txt">7 Design Axes</span><span class="m-dot">·</span>
+    <span class="m-txt">WCAG AA Validated</span><span class="m-dot">·</span>
+    <span class="m-txt accent">React</span><span class="m-dot">·</span>
+    <span class="m-txt accent">Next.js</span><span class="m-dot">·</span>
+    <span class="m-txt accent">Vue</span><span class="m-dot">·</span>
+    <span class="m-txt accent">Svelte</span><span class="m-dot">·</span>
+    <span class="m-txt accent">Astro</span><span class="m-dot">·</span>
+    <span class="m-txt accent">Nuxt</span><span class="m-dot">·</span>
+    <span class="m-txt accent">SolidJS</span><span class="m-dot">·</span>
+    <span class="m-txt">4 Component States</span><span class="m-dot">·</span>
+    <span class="m-txt">8 Languages</span><span class="m-dot">·</span>
+  </div>
 </div>
 
-<section id="pipeline">
-  <div class="wrap rel">
-    <div class="rv">
-      <span class="slabel">How It Works</span>
-      <h2 class="stitle">3단계 디자인 지능 파이프라인</h2>
-      <p class="sdesc">크롤링부터 UI 생성까지. 학습된 지식은 영구적으로 축적됩니다.</p>
-    </div>
-    <div class="pipe-g rv">
-      <div class="pcard">
-        <div class="pn">STEP 01</div>
-        <div class="pic" aria-hidden="true">🕸️</div>
-        <h3 class="pt">Crawl &amp; Learn</h3>
-        <p class="pd">Playwright로 Awwwards급 사이트를 크롤링합니다. CSS, DOM, 스크린샷을 수집하고 캐시합니다.</p>
-        <div class="pc">npx auradkit-trainer learn --all</div>
-      </div>
-      <div class="parr" aria-hidden="true">→</div>
-      <div class="pcard">
-        <div class="pn">STEP 02</div>
-        <div class="pic" aria-hidden="true">🧠</div>
-        <h3 class="pt">7-Axis Analysis</h3>
-        <p class="pd">Visual Hierarchy, Spatial Rhythm, Typography 등 7개 디자인 축으로 0–10점 정밀 채점합니다.</p>
-        <div class="pc">npx auradkit-trainer status</div>
-      </div>
-      <div class="parr" aria-hidden="true">→</div>
-      <div class="pcard">
-        <div class="pn">STEP 03</div>
-        <div class="pic" aria-hidden="true">✨</div>
-        <h3 class="pt">Compile &amp; Generate</h3>
-        <p class="pd">학습 데이터를 SKILL.md로 압축합니다. Claude Code가 이 지식으로 역대급 UI를 생성합니다.</p>
-        <div class="pc">npx auradkit-trainer compile</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="axes" style="background:linear-gradient(180deg,transparent,rgba(167,139,250,.03),transparent)">
-  <div class="wrap rel">
-    <div class="rv">
-      <span class="slabel">7 Design Axes</span>
-      <h2 class="stitle">모든 디자인 결정은 데이터 기반</h2>
-      <p class="sdesc">최고 수준 사이트에서 추출한 7개 측정 축. 각 축마다 10점 만점으로 정밀 채점합니다.</p>
-    </div>
-    <div class="axes-g rv" id="ag"></div>
-  </div>
-</section>
-
-<section id="demo">
-  <div class="wrap rel">
-    <div class="rv">
-      <span class="slabel">CLI Demo</span>
-      <h2 class="stitle">실제로 어떻게 작동하나요?</h2>
-      <p class="sdesc">3개의 명령으로 50개 사이트의 디자인 지식을 학습하고 UI를 만듭니다.</p>
-    </div>
-    <div class="dterm rv">
-      <div class="dbar">
-        <div class="ddots" aria-hidden="true">
-          <span class="dot dr"></span><span class="dot dy"></span><span class="dot dg"></span>
-        </div>
-        <span class="dtl">auradkit-trainer — zsh</span>
-        <div></div>
-      </div>
-      <div class="dbody" id="dt" aria-live="polite"></div>
-    </div>
-  </div>
-</section>
-
-<section id="install" class="inst rel">
+<!-- ═══ FEATURES — editorial numbered ══════════════════════════ -->
+<section class="section" id="features">
   <div class="wrap">
-    <div class="rv">
-      <span class="slabel">Get Started</span>
-      <h2 class="stitle">30초면 시작할 수 있습니다</h2>
-      <p class="sdesc" style="margin-inline:auto;text-align:center">Node.js 20+와 Claude Code만 있으면 됩니다.</p>
+    <div class="feat-hd rv">
+      <span class="eyebrow" data-i18n="feat_label">What makes it different</span>
+      <h2 class="feat-h2" data-i18n-html="feat_h2">Not templates.<br/>Intelligence.</h2>
     </div>
-    <div class="ibox rv" id="ibox">
-      <span class="icmd">npm install -g auradkit-trainer</span>
-      <button class="cpbtn" id="cpbtn" aria-label="명령어 복사">Copy</button>
-    </div>
-    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap" class="rv">
-      <a href="https://github.com/smorky85/auradkit" class="btn-o" target="_blank" rel="noopener">GitHub에서 보기 →</a>
-      <a href="https://www.npmjs.com/package/auradkit-trainer" class="btn-p" target="_blank" rel="noopener">npm 패키지 →</a>
+    <div class="feat-list">
+      <div class="feat-row rv" style="--d:.05s">
+        <span class="feat-n">01</span>
+        <div class="feat-body">
+          <h3 data-i18n="feat1_h">Design Knowledge, Not Rules</h3>
+          <p data-i18n="feat1_p">Generates UI that understands visual hierarchy, spacing rhythm, and color harmony — not just code that looks right.</p>
+        </div>
+        <span class="feat-tag" aria-hidden="true">INTELLIGENCE</span>
+      </div>
+      <div class="feat-row rv" style="--d:.1s">
+        <span class="feat-n">02</span>
+        <div class="feat-body">
+          <h3 data-i18n="feat2_h">Framework Native</h3>
+          <p data-i18n="feat2_p">Detects React, Vue, Svelte, Astro, Next.js, Nuxt automatically. Outputs idiomatic code for each. No config. No flags.</p>
+        </div>
+        <span class="feat-tag" aria-hidden="true">DETECTION</span>
+      </div>
+      <div class="feat-row rv" style="--d:.15s">
+        <span class="feat-n">03</span>
+        <div class="feat-body">
+          <h3 data-i18n="feat3_h">Accessibility Built In</h3>
+          <p data-i18n="feat3_p">Every component ships with semantic HTML, ARIA labels, keyboard navigation, and WCAG AA validated color contrast.</p>
+        </div>
+        <span class="feat-tag" aria-hidden="true">A11Y</span>
+      </div>
+      <div class="feat-row rv" style="--d:.2s">
+        <span class="feat-n">04</span>
+        <div class="feat-body">
+          <h3 data-i18n="feat4_h">4-State Complete</h3>
+          <p data-i18n="feat4_p">Default, loading, empty, error — every component is production-complete from day one, not a demo shell.</p>
+        </div>
+        <span class="feat-tag" aria-hidden="true">PRODUCTION</span>
+      </div>
     </div>
   </div>
 </section>
 
-<footer>
-  <div class="wrap"><div class="fi">
-    <div class="fc">© 2026 AuraDKit · MIT License · Powered by <a href="https://claude.ai/code" style="color:var(--p)" target="_blank" rel="noopener">Claude Code</a></div>
-    <nav class="fl" aria-label="푸터 링크">
-      <a href="https://github.com/smorky85/auradkit" target="_blank" rel="noopener">GitHub</a>
-      <a href="https://www.npmjs.com/package/auradkit-trainer" target="_blank" rel="noopener">npm</a>
-      <a href="https://github.com/smorky85/auradkit/blob/main/CLAUDE.md" target="_blank" rel="noopener">Docs</a>
-    </nav>
-  </div></div>
-</footer>
+<!-- ═══ SHOWCASE — tabs ═════════════════════════════════════════ -->
+<section class="section sec-alt" id="showcase">
+  <div class="wrap">
+    <div class="sec-hd rv">
+      <span class="eyebrow" data-i18n="show_label">Component Output</span>
+      <h2 class="sec-h2" data-i18n="show_h2">What you receive</h2>
+      <p class="sec-p" data-i18n="show_sub">Production-ready components with a complete design token system. Every time.</p>
+    </div>
 
-<script>
-// ── 7축 데이터 ──────────────────────────────────────────────────
-const AXES=[
-  {name:'비주얼 계층',en:'Visual Hierarchy',ico:'👁',col:'#a78bfa',sc:.88},
-  {name:'공간 리듬',  en:'Spatial Rhythm',  ico:'⬡',col:'#22d3ee',sc:.82},
-  {name:'타이포그래피',en:'Typography',     ico:'T',col:'#f472b6',sc:.91},
-  {name:'컬러',       en:'Color',           ico:'◑',col:'#fb923c',sc:.85},
-  {name:'모션',       en:'Motion',          ico:'◎',col:'#34d399',sc:.79},
-  {name:'컴포넌트',   en:'Component',       ico:'⊡',col:'#60a5fa',sc:.86},
-  {name:'레이아웃',   en:'Layout',          ico:'⊞',col:'#e879f9',sc:.93},
-];
-const ag=document.getElementById('ag');
-AXES.forEach(a=>{
-  const d=document.createElement('div');
-  d.className='acard';
-  d.innerHTML=`
-    <div class="aico" style="background:${a.col}22">${a.ico}</div>
-    <div class="aname">${a.name}</div>
-    <div class="aen">${a.en}</div>
-    <div class="abg"><div class="abar" style="background:linear-gradient(90deg,${a.col},${a.col}88);width:${a.sc*100}%"></div></div>
-    <div class="ascr">${(a.sc*10).toFixed(1)} / 10.0</div>`;
-  ag.appendChild(d);
-});
+    <div class="tabs rv" role="tablist">
+      <button class="tab active" data-tab="buttons" role="tab" aria-selected="true" aria-controls="panel-buttons" data-i18n="tab_btn">Buttons</button>
+      <button class="tab" data-tab="cards" role="tab" aria-selected="false" aria-controls="panel-cards" data-i18n="tab_card">Cards</button>
+      <button class="tab" data-tab="forms" role="tab" aria-selected="false" aria-controls="panel-forms" data-i18n="tab_form">Forms</button>
+    </div>
 
-// ── 스크롤 리빌 ─────────────────────────────────────────────────
-const obs=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{
-    if(!e.isIntersecting)return;
-    e.target.classList.add('on');
-    e.target.querySelectorAll('.abar').forEach((b,i)=>
-      setTimeout(()=>b.classList.add('on'),i*80+100));
-    obs.unobserve(e.target);
-  });
-},{threshold:.12});
-document.querySelectorAll('.rv').forEach(el=>obs.observe(el));
-
-// ── 스탯 카운터 ─────────────────────────────────────────────────
-const cobs=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{
-    if(!e.isIntersecting)return;
-    const el=e.target,t=+el.dataset.cnt;
-    if(!t)return;
-    let v=0;const s=Math.ceil(t/28);
-    const ti=setInterval(()=>{
-      v+=s;if(v>=t){el.textContent=t+'+';clearInterval(ti);}
-      else el.textContent=v;
-    },28);
-    cobs.unobserve(el);
-  });
-},{threshold:.5});
-document.querySelectorAll('[data-cnt]').forEach(el=>cobs.observe(el));
-
-// ── 터미널 유틸 ─────────────────────────────────────────────────
-const sleep=ms=>new Promise(r=>setTimeout(r,ms));
-function line(html){const d=document.createElement('div');d.innerHTML=html;return d;}
-async function type(el,txt,spd=42){
-  const span=document.createElement('span');span.className='t-cmd';
-  const cur=document.createElement('span');cur.className='cur';
-  el.appendChild(span);el.appendChild(cur);
-  for(const ch of txt){span.textContent+=ch;await sleep(spd+Math.random()*18);}
-  cur.remove();
+    <!-- Buttons -->
+    <div class="panel" id="panel-buttons" role="tabpanel">
+      <div class="panel-prev">
+        <div class="prev-row">
+          <button class="d-btn d-btn-primary" data-i18n="d_getstart">Get started</button>
+          <button class="d-btn d-btn-secondary" data-i18n="d_learn">Learn more</button>
+          <button class="d-btn d-btn-ghost" data-i18n="d_docs">View docs</button>
+        </div>
+        <div class="prev-row">
+          <button class="d-btn d-btn-primary d-loading" aria-label="Loading">
+            <span class="d-spin" aria-hidden="true"></span><span data-i18n="d_loading">Loading</span>
+          </button>
+          <button class="d-btn d-btn-primary" disabled data-i18n="d_disabled">Disabled</button>
+          <button class="d-btn d-btn-danger" data-i18n="d_delete">Delete</button>
+          <button class="d-btn d-btn-success" data-i18n="d_confirm">Confirm</button>
+          <button class="d-btn d-btn-sm" data-i18n="d_small">Small</button>
+        </div>
+      </div>
+      <div class="panel-code">
+        <div class="code-bar">
+          <span class="code-lang">TSX</span>
+          <span class="code-file">Button.tsx</span>
+          <button class="code-cp" onclick="copyCode(this,'btn-code')" aria-label="Copy code">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+          </button>
+        </div>
+        <pre class="code-body" id="btn-code"><code><span class="ck">interface</span> <span class="ct">ButtonProps</span> {
+  variant?: <span class="cs">'primary'</span> | <span class="cs">'secondary'</span> | <span class="cs">'ghost'</span>
+  isLoading?: boolean
+  children: React.ReactNode
 }
 
-// ── 히어로 터미널 ────────────────────────────────────────────────
-(async()=>{
-  const ht=document.getElementById('ht');
-  await sleep(800);
-  ht.appendChild(line('<span class="tp">~ $ </span>'));
-  await type(ht,'npx auradkit-trainer learn --all');
-  await sleep(300);
-  const rows=[
-    `<span class="ti">  총 50개 사이트 분석 예정 (동시 3개)</span>`,
-    `<span class="tok">  ✓ linear.app</span>   <span class="ts">9.1/10  reference</span>  <span class="ti">[1/50]  2.3s</span>`,
-    `<span class="tok">  ✓ figma.com</span>    <span class="ts">8.8/10  reference</span>  <span class="ti">[2/50]  1.9s</span>`,
-    `<span class="tok">  ✓ vercel.com</span>   <span class="ts">9.3/10  reference</span>  <span class="ti">[3/50]  2.1s</span>`,
-    `<span class="ti">  ...</span>`,
-    `<span class="tok">  ✓ 컴파일 완료 → .claude/skills/auradkit/SKILL.md</span>`,
-  ];
-  for(const r of rows){ht.appendChild(line(r));await sleep(280);}
-})();
+<span class="ck">export function</span> <span class="cf">Button</span>({ variant = <span class="cs">'primary'</span>, isLoading, children, ...props }: <span class="ct">ButtonProps</span>) {
+  <span class="ck">return</span> (
+    &lt;<span class="ct">button</span>
+      <span class="ca">data-state</span>={isLoading ? <span class="cs">"loading"</span> : <span class="cs">"default"</span>}
+      <span class="ca">aria-busy</span>={isLoading}
+      <span class="ca">className</span>={<span class="cs">`btn btn--${variant}`</span>}
+      {...props}
+    &gt;
+      {isLoading &amp;&amp; &lt;<span class="ct">Spinner</span> /&gt;}
+      {children}
+    &lt;/<span class="ct">button</span>&gt;
+  )
+}</code></pre>
+      </div>
+    </div>
 
-// ── 메인 데모 터미널 ─────────────────────────────────────────────
-const dtObs=new IntersectionObserver(async entries=>{
-  if(!entries[0].isIntersecting)return;
-  dtObs.disconnect();
-  const dt=document.getElementById('dt');
-  const seq=[
-    {prompt:'npx auradkit-trainer status',delay:600,out:[
-      `<span class="ti">  ┌─ AuraDKit Knowledge Base Dashboard ─────────┐</span>`,
-      `<span class="ti">  │  분석 사이트:  50개   평균 점수: 8.6/10     │</span>`,
-      `<span class="ti">  │  ★ reference: 23  ◉ good: 18  ○ average: 9  │</span>`,
-      `<span class="ti">  └──────────────────────────────────────────────┘</span>`,
-    ]},
-    {prompt:'npx auradkit-trainer compile',delay:900,out:[
-      `<span class="tok">  ✓ 15개 디자인 원칙 추출</span>`,
-      `<span class="tok">  ✓ SKILL.md 생성 완료 (482줄)</span>`,
-      `<span class="ts">  → .claude/skills/auradkit/SKILL.md</span>`,
-    ]},
-    {prompt:'/auradkit 유저 대시보드 만들어줘',delay:1000,out:[
-      `<span class="ts">  ✦ AuraDKit 분석 완료</span>`,
-      `<span class="tok">  ✓ 8.9/10 Visual Hierarchy 적용</span>`,
-      `<span class="tok">  ✓ 4px 배수 간격 시스템 적용</span>`,
-      `<span class="tok">  ✓ WCAG AA 색상 대비 검증 완료</span>`,
-      `<span class="tok">  ✓ dashboard.tsx 생성 완료</span>`,
-    ]},
-  ];
-  for(const s of seq){
-    await sleep(s.delay);
-    dt.appendChild(line(`<span class="tp">~ $ </span>`));
-    await type(dt,s.prompt,38);
-    await sleep(400);
-    for(const o of s.out){dt.appendChild(line(o));await sleep(220);}
-    await sleep(300);
-    dt.appendChild(line(''));
-  }
-},{threshold:.3});
-dtObs.observe(document.getElementById('dt'));
+    <!-- Cards -->
+    <div class="panel hidden" id="panel-cards" role="tabpanel">
+      <div class="panel-prev">
+        <div class="d-cards">
+          <article class="d-card">
+            <div class="d-card-ico" aria-hidden="true">⚡</div>
+            <h4 class="d-card-h" data-i18n="dc1_h">Lightning Fast</h4>
+            <p class="d-card-p" data-i18n="dc1_p">Optimized performance with intelligent lazy loading and cache management.</p>
+            <a class="d-card-link" href="#" data-i18n="d_learnmore">Learn more →</a>
+          </article>
+          <article class="d-card">
+            <div class="d-card-ico" aria-hidden="true">🛡️</div>
+            <h4 class="d-card-h" data-i18n="dc2_h">Secure by Default</h4>
+            <p class="d-card-p" data-i18n="dc2_p">Enterprise-grade security with zero configuration required.</p>
+            <a class="d-card-link" href="#" data-i18n="d_learnmore">Learn more →</a>
+          </article>
+          <article class="d-card">
+            <div class="d-card-ico" aria-hidden="true">🔗</div>
+            <h4 class="d-card-h" data-i18n="dc3_h">Integrations</h4>
+            <p class="d-card-p" data-i18n="dc3_p">Works with your existing stack. APIs, webhooks, and SDKs included.</p>
+            <a class="d-card-link" href="#" data-i18n="d_learnmore">Learn more →</a>
+          </article>
+        </div>
+      </div>
+      <div class="panel-code">
+        <div class="code-bar">
+          <span class="code-lang">TSX</span>
+          <span class="code-file">FeatureCard.tsx</span>
+          <button class="code-cp" onclick="copyCode(this,'card-code')" aria-label="Copy code">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+          </button>
+        </div>
+        <pre class="code-body" id="card-code"><code><span class="ck">interface</span> <span class="ct">CardProps</span> {
+  icon: string
+  title: string
+  description: string
+  href?: string
+}
 
-// ── 복사 버튼 ────────────────────────────────────────────────────
-document.getElementById('cpbtn').addEventListener('click',async e=>{
-  e.stopPropagation();
-  await navigator.clipboard.writeText('npm install -g auradkit-trainer').catch(()=>{});
-  const btn=e.target;
-  btn.textContent='Copied!';btn.style.color='var(--gr)';
-  setTimeout(()=>{btn.textContent='Copy';btn.style.color='';},2000);
-});
-document.getElementById('ibox').addEventListener('keydown',e=>{
-  if(e.key==='Enter'||e.key===' ')document.getElementById('cpbtn').click();
-});
-</script>
+<span class="ck">export function</span> <span class="cf">FeatureCard</span>({ icon, title, description, href }: <span class="ct">CardProps</span>) {
+  <span class="ck">return</span> (
+    &lt;<span class="ct">article</span> <span class="ca">className</span>=<span class="cs">"feature-card"</span> <span class="ca">data-state</span>=<span class="cs">"default"</span>&gt;
+      &lt;<span class="ct">div</span> <span class="ca">className</span>=<span class="cs">"card-icon"</span> <span class="ca">aria-hidden</span>=<span class="cs">"true"</span>&gt;{icon}&lt;/<span class="ct">div</span>&gt;
+      &lt;<span class="ct">h3</span>&gt;{title}&lt;/<span class="ct">h3</span>&gt;
+      &lt;<span class="ct">p</span>&gt;{description}&lt;/<span class="ct">p</span>&gt;
+      {href &amp;&amp; &lt;<span class="ct">a</span> <span class="ca">href</span>={href}&gt;Learn more →&lt;/<span class="ct">a</span>&gt;}
+    &lt;/<span class="ct">article</span>&gt;
+  )
+}</code></pre>
+      </div>
+    </div>
+
+    <!-- Forms -->
+    <div class="panel hidden" id="panel-forms" role="tabpanel">
+      <div class="panel-prev">
+        <form class="d-form" onsubmit="return false" novalidate>
+          <div class="d-field">
+            <label class="d-label" for="dEmail" data-i18n="df_email">Email address</label>
+            <input class="d-input" id="dEmail" type="email" value="user@example.com" readonly/>
+          </div>
+          <div class="d-field">
+            <label class="d-label" for="dPass" data-i18n="df_pass">Password</label>
+            <input class="d-input is-err" id="dPass" type="password" value="weak" readonly/>
+            <span class="d-err" data-i18n="df_pass_err">Password must be at least 8 characters</span>
+          </div>
+          <div class="d-field">
+            <label class="d-label" for="dRole" data-i18n="df_role">Role</label>
+            <select class="d-select" id="dRole">
+              <option data-i18n="df_dev">Developer</option>
+              <option data-i18n="df_des">Designer</option>
+              <option data-i18n="df_mgr">Manager</option>
+            </select>
+          </div>
+          <button class="d-btn d-btn-primary d-full" type="submit" data-i18n="df_signin">Sign in</button>
+        </form>
+      </div>
+      <div class="panel-code">
+        <div class="code-bar">
+          <span class="code-lang">TSX</span>
+          <span class="code-file">SignInForm.tsx</span>
+          <button class="code-cp" onclick="copyCode(this,'form-code')" aria-label="Copy code">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+          </button>
+        </div>
+        <pre class="code-body" id="form-code"><code><span class="ck">export function</span> <span class="cf">SignInForm</span>() {
+  <span class="ck">const</span> [errors, setErrors] = useState&lt;<span class="ct">Record</span>&lt;string, string&gt;&gt;({})
+  <span class="ck">const</span> [loading, setLoading] = useState(<span class="cs">false</span>)
+
+  <span class="ck">return</span> (
+    &lt;<span class="ct">form</span>
+      <span class="ca">onSubmit</span>={handleSubmit}
+      <span class="ca">aria-label</span>=<span class="cs">"Sign in"</span>
+      <span class="ca">data-state</span>={loading ? <span class="cs">"loading"</span> : <span class="cs">"default"</span>}
+      <span class="ca">noValidate</span>
+    &gt;
+      &lt;<span class="ct">Field</span> <span class="ca">label</span>=<span class="cs">"Email"</span> <span class="ca">type</span>=<span class="cs">"email"</span> <span class="ca">error</span>={errors.email} /&gt;
+      &lt;<span class="ct">Field</span> <span class="ca">label</span>=<span class="cs">"Password"</span> <span class="ca">type</span>=<span class="cs">"password"</span> <span class="ca">error</span>={errors.password} /&gt;
+      &lt;<span class="ct">Button</span> <span class="ca">type</span>=<span class="cs">"submit"</span> <span class="ca">fullWidth</span> <span class="ca">isLoading</span>={loading}&gt;Sign in&lt;/<span class="ct">Button</span>&gt;
+    &lt;/<span class="ct">form</span>&gt;
+  )
+}</code></pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ HOW IT WORKS ════════════════════════════════════════════ -->
+<section class="section" id="how">
+  <div class="wrap">
+    <div class="sec-hd rv">
+      <span class="eyebrow" data-i18n="how_label">Usage</span>
+      <h2 class="sec-h2" data-i18n="how_h2">Three steps to S-Grade UI</h2>
+    </div>
+    <div class="steps rv">
+      <div class="step">
+        <span class="step-n">01</span>
+        <h3 data-i18n="how1_h">Install</h3>
+        <code class="step-cmd" onclick="copyInstall()" title="Click to copy">npx @smorky85/auradkit</code>
+        <p data-i18n="how1_p">Installs AuraDKit into your Claude Code environment. One command, done in seconds.</p>
+      </div>
+      <div class="step">
+        <span class="step-n">02</span>
+        <h3 data-i18n="how2_h">Request</h3>
+        <code class="step-cmd">/auradkit build: pricing section</code>
+        <p data-i18n="how2_p">Describe the UI you need. Your framework is auto-detected. Any component, any complexity.</p>
+      </div>
+      <div class="step">
+        <span class="step-n">03</span>
+        <h3 data-i18n="how3_h">Ship</h3>
+        <p data-i18n="how3_p">Receive production-ready code — responsive, accessible, token-driven, with all four states.</p>
+        <div class="state-chips">
+          <span class="chip chip-default">default</span>
+          <span class="chip chip-loading">loading</span>
+          <span class="chip chip-empty">empty</span>
+          <span class="chip chip-error">error</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ INSTALL CTA ══════════════════════════════════════════════ -->
+<section class="cta-sec" id="install">
+  <div class="wrap cta-inner rv">
+    <h2 class="cta-h2" data-i18n="cta_h2">Add to Claude Code</h2>
+    <p class="cta-p" data-i18n="cta_p">Install AuraDKit and generate your first S-Grade component in under 60 seconds.</p>
+    <div class="cta-cmd">
+      <code class="cta-code" id="ctaCode">npx @smorky85/auradkit</code>
+      <button class="cta-cp" id="ctaCopy" onclick="copyInstall()" aria-label="Copy command">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+        <span id="copyLbl" data-i18n="cta_copy">Copy</span>
+      </button>
+    </div>
+    <p class="cta-meta" data-i18n="cta_meta">Node 18+ · Claude Code required · Local data only</p>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══════════════════════════════════════════════════ -->
+<footer class="footer">
+  <div class="wrap footer-row">
+    <div>
+      <a class="logo" href="#hero">
+        <svg class="logo-svg" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+          <defs>
+            <linearGradient id="lgF" x1="0" y1="0" x2="28" y2="28" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#a78bfa"/><stop offset="1" stop-color="#22d3ee"/>
+            </linearGradient>
+          </defs>
+          <polygon points="14,1 27,14 14,27 1,14" stroke="url(#lgF)" stroke-width="1.5" fill="none"/>
+          <circle cx="14" cy="14" r="3" fill="url(#lgF)"/>
+        </svg>
+        <span class="logo-name">AuraDKit</span>
+      </a>
+      <p class="footer-desc" data-i18n="footer_desc">Design Intelligence Engine · v5.0.1</p>
+    </div>
+    <nav class="footer-nav" aria-label="Footer links">
+      <a class="footer-a" href="https://github.com/smorky85/AuraDKit" target="_blank" rel="noopener">GitHub</a>
+      <a class="footer-a" href="https://github.com/smorky85/AuraDKit/blob/main/README.md" target="_blank" rel="noopener" data-i18n="footer_docs">Docs</a>
+    </nav>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/three@0.166.1/build/three.min.js"></script>
+<script src="app.js"></script>
 </body>
 </html>
