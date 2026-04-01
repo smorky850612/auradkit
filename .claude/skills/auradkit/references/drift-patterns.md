@@ -16,7 +16,7 @@ spacingtypographycolorradiusshadowmotion
 ## Spacing Drift
 
 ### [HIGH] 임의 픽셀 간격 사용
-*Occurrences: 45 | Detection: 4px 배수 준수율 < 70%*
+*Occurrences: 52 | Detection: 4px 배수 준수율 < 70%*
 
 3px, 7px, 11px, 13px 등 4px 배수가 아닌 임의 간격값이 산재해 있다.
 
@@ -34,7 +34,7 @@ padding: var(--aurad-space-2) var(--aurad-space-3);  /* 8px 12px */
 
 
 ### [MEDIUM] 간격 토큰 과다 (10종 이상)
-*Occurrences: 2 | Detection: 고유 간격값 > 12종*
+*Occurrences: 5 | Detection: 고유 간격값 > 12종*
 
 10가지 이상의 서로 다른 간격값이 사용되어 일관성이 없다.
 
@@ -59,7 +59,7 @@ padding: var(--aurad-space-2) var(--aurad-space-3);  /* 8px 12px */
 ## Typography Drift
 
 ### [HIGH] 폰트 크기 과다 (8종 이상)
-*Occurrences: 2 | Detection: 고유 폰트 크기 > 8종*
+*Occurrences: 3 | Detection: 고유 폰트 크기 > 8종*
 
 8가지 이상의 폰트 크기가 사용되어 시각적 위계가 무너진다.
 
@@ -77,7 +77,7 @@ padding: var(--aurad-space-2) var(--aurad-space-3);  /* 8px 12px */
 
 
 ### [MEDIUM] 비표준 폰트 크기 사용
-*Occurrences: 2 | Detection: 모듈러 스케일 준수율 < 60%*
+*Occurrences: 4 | Detection: 모듈러 스케일 준수율 < 60%*
 
 15px, 17px, 22px 등 표준 모듈러 스케일에 없는 크기가 사용된다.
 
@@ -130,7 +130,7 @@ background: var(--aurad-surface);
 ## Radius Drift
 
 ### [MEDIUM] Border-radius 불일치
-*Occurrences: 97 | Detection: 고유 border-radius > 5종 (0 제외)*
+*Occurrences: 108 | Detection: 고유 border-radius > 5종 (0 제외)*
 
 버튼, 카드, 입력 등 각 요소가 서로 다른 border-radius를 사용한다.
 
@@ -149,7 +149,7 @@ background: var(--aurad-surface);
 ## Shadow Drift
 
 ### [MEDIUM] 그림자 과용
-*Occurrences: 82 | Detection: 그림자 적용 요소 > 총 요소의 15%*
+*Occurrences: 92 | Detection: 그림자 적용 요소 > 총 요소의 15%*
 
 20개 이상의 요소에 box-shadow가 적용되어 시각적 무게감이 과도하다.
 
@@ -162,7 +162,7 @@ background: var(--aurad-surface);
 ## Motion Drift
 
 ### [CRITICAL] prefers-reduced-motion 미적용
-*Occurrences: 125 | Detection: CSS에 prefers-reduced-motion 규칙 없음*
+*Occurrences: 164 | Detection: CSS에 prefers-reduced-motion 규칙 없음*
 
 모든 애니메이션에 접근성 미디어 쿼리가 없다. WCAG 2.1 AA 위반 가능.
 
@@ -181,7 +181,7 @@ background: var(--aurad-surface);
 
 
 ### [HIGH] Layout 속성 애니메이션 (성능 문제)
-*Occurrences: 18 | Detection: transition에 width/height/top/left 포함*
+*Occurrences: 19 | Detection: transition에 width/height/top/left 포함*
 
 width, height, top, left 등 레이아웃을 재계산하는 속성이 애니메이션된다.
 

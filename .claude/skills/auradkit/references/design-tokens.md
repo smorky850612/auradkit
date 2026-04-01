@@ -1,6 +1,6 @@
 # AuraDKit — Design Tokens Reference
 
-> Generated from 261 sites. Reference tier: 26 sites.
+> Generated from 309 sites. Reference tier: 26 sites.
 
 ## Observed Font Size Scales
 - astro.build: 12, 14, 16, 18, 20, 30px
@@ -51,8 +51,11 @@
 - docs.vercel.com: `--color-`
 - flowbite.com: `--docsearch`
 - flowbite.com: `--docsearch`
+- loomrugs.com.au: `--base`
+- claudetype.com: `--marquee`
 - loom.com: `--thd`
 - loom.com: `--thd`
+- mobbin.com: `--opacity`
 - openai.com: `--color-`
 - openai.com: `--color-`
 - platform.openai.com: `--color-`
@@ -67,6 +70,7 @@
 - developer.mozilla.org: `--color-`
 - figma.com: `--f`
 - figma.com: `--f`
+- littleampscoffee.com: `--color-`
 - novu.co: `--color-`
 - novu.co: `--color-`
 - cursor.com: `--color-`
@@ -105,14 +109,18 @@
 - ui.shadcn.com: `--sidebar`
 - wundergraph.com: `--osano`
 - wundergraph.com: `--osano`
+- about.stunning.kr: `--animate`
 - bolt.new: `--bolt`
 - bolt.new: `--bolt`
 - cassie.codes: `--color-`
 - cassie.codes: `--color-`
+- magpie-studio.com: `--wp`
 - mui.com: `--font-`
 - mui.com: `--font-`
+- pilcrow.no: `--color-`
 - radix-ui.com: `--gray`
 - radix-ui.com: `--gray`
+- snohetta.com: `--color-`
 - upstash.com: `--color-`
 - upstash.com: `--color-`
 - v0.dev: `--fides`
@@ -121,6 +129,7 @@
 - vercel.com: `--font-`
 - antfu.me: `--color-`
 - antfu.me: `--color-`
+- careers.codeit.com: `--greeting`
 - mantine.dev: `--mantine-`
 - mantine.dev: `--mantine-`
 - stack.convex.dev: `--aa`
@@ -128,12 +137,15 @@
 - vitejs.dev: `--color-`
 - vitejs.dev: `--color-`
 - footer.design: `--white`
+- metrogallery.com.au: `--single`
 - paco.me: `--font-`
 - paco.me: `--font-`
+- apps.apple.com: `--font-`
 - arc.net: `--page`
 - arc.net: `--page`
 - daverupert.com: `--color-`
 - daverupert.com: `--color-`
+- trilo.bio: `--color-`
 - tympanus.net: `--wp`
 - tympanus.net: `--wp`
 - workos.com: `--um`
@@ -144,10 +156,13 @@
 - app.posthog.com: `--color-`
 - locomotive.ca: `--color-`
 - locomotive.ca: `--color-`
+- nooon.studio: `--button`
 - raycast.com: `--color-`
 - raycast.com: `--color-`
 - samuelkraft.com: `unknown`
 - samuelkraft.com: `unknown`
+- studioantwork.com: `--wp`
+- ymugroup.com: `--fa`
 - app.plane.so: `--ease`
 - app.plane.so: `--ease`
 - awwwards.com: `--color-`
@@ -158,6 +173,7 @@
 - alistapart.com: `--wp`
 - docs.stripe.com: `--s`
 - docs.stripe.com: `--s`
+- verticalgardendesign.com: `--color-`
 - app.cal.com: `--font-`
 - app.cal.com: `--font-`
 - gitbutler.com: `--font-`
@@ -168,6 +184,9 @@
 - rauno.me: `--yellow`
 - robbowen.digital: `unknown`
 - robbowen.digital: `unknown`
+- visualjournal.it: `--font-`
+- wam.studio: `--tw-`
+- counter-forms.com: `--color-`
 - httpster.net: `--color-`
 - overreacted.io: `--code`
 - overreacted.io: `--code`
