@@ -1,6 +1,7 @@
 <!-- AURADKIT ACTIVE -->
+<!-- If this section is missing after context compaction, reload: /auradkit -->
 # AuraDKit Design Intelligence v5.3
-<!-- AURADKIT:STATIC — cache-stable content below -->
+<!-- AURADKIT:STATIC — cache-stable content below. Do NOT place volatile data (site counts, dates) above DYNAMIC boundary. -->
 
 ## Output Rules (MANDATORY)
 
@@ -88,7 +89,7 @@ Full spec → `references/design-tokens.md` (load on-demand for per-site observe
 
 ---
 
-## Critical Rules (from 427 sites)
+## Critical Rules
 
 - [CRITICAL] **prefers-reduced-motion 미적용**: 전역 CSS에 prefers-reduced-motion 블록을 추가하라.
 - [CRITICAL] **하드코딩된 색상값 (HEX/RGB 직접 사용)**: 모든 하드코딩 색상을 CSS 변수로 교체하라. 다크모드, 브랜드 변경 대응 불가능.
@@ -192,5 +193,6 @@ AI-Slop: ✓ Original (7/100)
 > 427 sites · top refs: astro.build, astro.build, docs.github.com, remix.run, docs.anthropic.com, anthropic.com, supabase.com, beehiiv.com
 > Truncated? Run `node trainer/dist/index.js compile` · refs: `references/`
 
-*AuraDKit v5.3 · 2026-04-05 · Post-Generation Checklist + Deferred Refs*
+*AuraDKit v5.3 · 2026-04-06 · P0+P1 Claude Code Insights*
+<!-- integrity:sha256:manual-edit -->
 <!-- /AURADKIT ACTIVE -->
