@@ -131,7 +131,7 @@ After generating UI code, verify ALL items before presenting to user:
 | 5 | `:focus-visible` on interactives | every `<button>`, `<a>`, `<input>` has visible focus style |
 | 6 | 4px grid spacing | all margin/padding/gap values are multiples of 4px or use `--aurad-space-*` |
 | 7 | div nesting <= 3 | no `<div>` deeper than 3 levels — use semantic elements |
-| 8 | No AI-slop patterns | no purple-blue gradient hero, no identical 3-card grid, no generic stock placeholders |
+| 8 | No AI-slop (SLOP-01~07) | scan output against slop table below — if ANY SLOP code matches, rewrite that section |
 | 9 | Semantic HTML | `<nav>`, `<main>`, `<section>`, `<article>` used over `<div>` |
 | 10 | Touch targets >= 44px | interactive elements have `min-height: 44px; min-width: 44px` |
 
@@ -160,10 +160,28 @@ If ANY check fails, fix before output. Do not present unchecked code.
 - **Data Table with Sort/Filter** [layout]: 정렬/필터 가능한 데이터 테이블. SaaS 대시보드 핵심 패턴.
 - **Hero + CTA** [hero]: 전체 너비 히어로 섹션 + 중앙 CTA 버튼. 랜딩 페이지 필수 패턴.
 
-### Anti-Patterns
-- ⚠ **Form Without Error States**: 에러/성공 상태 없는 폼. 사용자 피드백 부재로 전환율 저하.
-- ⚠ **Shadow Overuse**: 모든 요소에 과도한 drop-shadow 적용. 시각적 무게감 과부하.
-- ⚠ **Purple-Blue Gradient Hero**: 보라-파랑 그라데이션 히어로 배경. AI 생성 UI의 대표적 클리셰.
+### Anti-Patterns (Design)
+- ⚠ **Form Without Error States**: 에러/성공 상태 없는 폼. 4-state 필수.
+- ⚠ **Shadow Overuse**: 모든 요소에 과도한 drop-shadow. floating 요소만 shadow 허용.
+
+### AI Slop Detection (SLOP-01~07 — MANDATORY real-time check)
+
+| Code | Pattern | Detection | Alternative |
+|------|---------|-----------|-------------|
+| SLOP-01 | Purple-blue gradient hero | `linear-gradient` with H:220-320 in hero | Solid `--aurad-surface` + product screenshot |
+| SLOP-02 | Generic icon set (94+ same lib) | All icons from one library, 0 custom | Fewer icons + custom brand mark |
+| SLOP-03 | 3-col identical feature grid | `repeat(3,1fr)` + icon+h3+p same structure | Primary/secondary split layout |
+| SLOP-04 | Floating dashboard screenshot | `perspective()` + `box-shadow:40px+` in hero img | Real screenshot, no transform theater |
+| SLOP-05 | Glowing blur orbs | `filter:blur(60px+)` + `radial-gradient` + `position:absolute` | Border + surface color contrast |
+| SLOP-06 | Star testimonial carousel | Stars + generic quote + stock avatar | Specific outcome quote + real attribution |
+| SLOP-07 | Pill badge hero label | `border-radius:9999px` + "Introducing/New" above h1 | Changelog link or omit entirely |
+
+**Text Slop Blocklist** — NEVER use these phrases in generated copy:
+`blazing fast` · `seamless` · `robust` · `cutting-edge` · `state-of-the-art` · `easy to use` · `intuitive` · `powerful` · `secure by default` · `built for scale` · `enterprise-grade` · `next-generation`
+
+**Core principle**: Replace generic category signal with specific product evidence.
+
+Full rules + code examples → `knowledge-base/anti-ai-slop/` (load on-demand)
 
 ### Category Hints (load on-demand)
 - `layout`: Sidebar + Main Content, Data Table with Sort/Filter
