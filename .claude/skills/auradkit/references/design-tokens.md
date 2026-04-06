@@ -1,24 +1,24 @@
 # AuraDKit — Design Tokens Reference
 
-> Generated from 427 sites. Reference tier: 19 sites.
+> Generated from 455 sites. Reference tier: 138 sites.
 
 ## Observed Font Size Scales
+- angular.dev: 13, 14, 16, 51, 80px
+- antfu.me: 16, 36px
 - anthropic.com: 16, 18, 20px
-- astro.build: 12, 14, 16, 18, 20, 30px
-- astro.build: 12, 14, 16, 18, 20, 30px
-- beehiiv.com: 13, 14, 16, 18px
-- bun.sh: 12, 14, 16, 18, 19, 20px
+- anthropic.com: 16, 18, 20px
+- area17.com: 16, 20, 42, 55px
 
 ## Observed Spacing Values
+- angular.dev: 1, 2, 4, 6, 8, 12px
+- antfu.me: 32px
 - anthropic.com: 4, 8, 16, 31, 46, 61px
-- astro.build: 4, 8, 12, 16, 24, 32px
-- astro.build: 4, 8, 12, 16, 24, 32px
-- beehiiv.com: 1, 8, 10, 12, 16, 20px
-- bun.sh: 4, 6, 8, 12, 15, 16px
+- anthropic.com: 4, 8, 16, 31, 46, 61px
+- area17.com: 8, 12, 16, 24, 48, 64px
 
 ## Token System Prevalence
-167/427 sites (39%) use CSS custom properties.
-Top namespaces: `--color-` (52 sites), `--font-` (23 sites), `--wp` (4 sites), `--radius-` (3 sites), `--gray` (3 sites)
+188/455 sites (41%) use CSS custom properties.
+Top namespaces: `--color-` (57 sites), `--font-` (25 sites), `--wp-` (6 sites), `--radius-` (3 sites), `--gray` (3 sites)
 
 ## Full Token Spec
 

@@ -28,7 +28,7 @@
 ---
 
 ## Token System
-Full spec → `references/design-tokens.md` (load on-demand for per-site observed values)
+Full spec → `references/design-tokens.md`
 
 ```css
 /* Color tokens — use --aurad-fg for text color, --aurad-text-* for font sizes */
@@ -97,9 +97,7 @@ Full spec → `references/design-tokens.md` (load on-demand for per-site observe
 - [HIGH] **Layout 속성 애니메이션 (성능 문제)**: transform: translateX/Y, scale과 opacity만 애니메이션하라. GPU 합성 레이어 활용.
 - [HIGH] **4종 이상 폰트 패밀리 혼용**: 최대 2종 폰트(헤딩용 + 본문용)로 줄여라. 단일 폰트도 충분히 효과적이다.
 - [HIGH] **고유 색상값 과다 (30종 이상)**: semantic color 토큰 10개 이하로 팔레트를 정리하고 CSS 변수로 참조하라.
-- [CRITICAL] **255개 사이트에서 WCAG AA 미달 색상 감지**: 사전 검증된 색상 쌍만 사용하라: --aurad-text on --aurad-surface = 7.2:1 (AAA).
-- [HIGH] **color 축이 가장 낮은 점수 (5.8/10)**: color 관련 원칙을 먼저 적용하라. 이 축의 개선이 전체 점수 상승에 가장 효과적이다.
-- [HIGH] **239개 사이트에서 prefers-reduced-motion 미지원**: 모든 애니메이션에 prefers-reduced-motion: reduce 분기를 추가하라.
+- [CRITICAL] **56개 사이트에서 WCAG AA 미달 색상 감지**: 사전 검증된 색상 쌍만 사용하라: --aurad-text on --aurad-surface = 7.2:1 (AAA).
 - [HIGH] **터치 타겟 44px 준수율 저조 — 평균 29%**: 모든 인터랙티브 요소에 min-height: 44px; min-width: 44px를 적용하라.
 
 Full catalog → `references/drift-patterns.md` (load on-demand for specific drift axis details)
@@ -108,11 +106,11 @@ Full catalog → `references/drift-patterns.md` (load on-demand for specific dri
 
 ## Design Principles (Top 5)
 
-- **transform/opacity만 애니메이션** (95%): GPU 합성 레이어만 사용 → 60fps 보장.
-- **단일 H1 + Hero + CTA 조합** (86%): 시선 집중도 최대화.
-- **2폰트 페어링** (86%): 헤딩+본문 2개가 최적.
-- **모듈러 스케일 80%+** (81%): [12,14,16,18,20,24,30,36,48]px 표준값.
-- **4px 배수 간격 80%+** (72%): 공간 리듬의 기초.
+- **transform/opacity만 애니메이션** (95%): GPU 합성 레이어(transform, opacity)만 애니메이션하면 60fps를 유지할 수 있다.
+- **2폰트 페어링이 이상적** (86%): 폰트 패밀리 2개(헤딩+본문)가 가장 일관성 있고 개성 있는 조합이다.
+- **단일 H1 + Hero + CTA 조합** (85%): 페이지당 H1 하나, Hero 섹션, CTA 버튼이 함께 있을 때 시선 집중도가 최대화된다.
+- **모듈러 스케일 80%+ 준수** (80%): \[12,14,16,18,20,24,30,36,48,60,72]px 표준값 80% 이상 사용 시 스케일 시스템이 인식된다.
+- **4px 배수 간격 시스템 80%+ 준수** (74%): 모든 margin/padding/gap이 4px 배수일 때 공간 리듬이 형성된다. 80% 이상 준수가 목표.
 
 All 15 principles across 7 axes → `references/principles.md` (load on-demand for axis-specific guidance)
 
@@ -139,30 +137,47 @@ If ANY check fails, fix before output. Do not present unchecked code.
 
 ---
 
-## Modern CSS & Mobile (ref sites: 19)
+## Modern CSS & Mobile (ref sites: 138)
 
-- `@container`: 58% — component-level responsive
-- `line-clamp`: 21% — truncate card body text
-- `scroll-behavior:smooth`: 16% — add to html/body
-- `text-wrap:balance`: 16% — use on headings
-- `overscroll-behavior`: 16% — prevent modal bounce
+- `scroll-behavior:smooth`: 67% — add to html/body
+- `line-clamp`: 62% — truncate card body text
+- `text-wrap:balance`: 54% — use on headings
+- `overscroll-behavior`: 50% — prevent modal bounce
+- `@container`: 41% — component-level responsive
+
+---
+
+## Visual Intelligence (ref sites: 138)
+
+**Design styles:** glassmorphism(107), mixed(13), editorial(11), minimalist(4)
+
+**Visual effects:**
+- Glassmorphism (backdrop-filter): 78% — blur + semi-transparent bg
+- Gradient-heavy (3+): 83%
+- Gradient text (background-clip:text): 42%
+- Blend modes: 89%
+- clip-path shapes: 64%
+- Grain/noise texture: 10%
+
+**Video:** - Sites using video: 40% (hero: 21%, WebM: 8%)
 
 ---
 
 ## Patterns
 
+- **Floating Label Form** [form]: 입력 시 레이블이 위로 올라가는 floating label 패턴.
 - **Sidebar + Main Content** [layout]: 좌측 고정 사이드바 + 우측 메인 콘텐츠 레이아웃. SaaS 대시보드 표준.
 - **Sticky Navigation** [navigation]: 스크롤 시 상단에 고정되는 내비게이션 바.
 - **3-Column Feature Grid** [card-grid]: 3컬럼 기능 소개 그리드. 아이콘 + 제목 + 설명 구조.
-- **Accessible Motion (reduced-motion)** [animation]: @media (prefers-reduced-motion: reduce) 분기로 모든 애니메이션 접근성 지원.
-- **Floating Label Form** [form]: 입력 시 레이블이 위로 올라가는 floating label 패턴.
 - **Typographic Scale System** [typography]: 12-72px 모듈러 스케일을 일관되게 적용한 타이포 시스템.
-- **Data Table with Sort/Filter** [layout]: 정렬/필터 가능한 데이터 테이블. SaaS 대시보드 핵심 패턴.
+- **Accordion / FAQ** [card-grid]: FAQ/콘텐츠 아코디언. 정보 계층 정리에 효과적. details/summary 또는 JS 구현.
+- **Accessible Motion (reduced-motion)** [animation]: @media (prefers-reduced-motion: reduce) 분기로 모든 애니메이션 접근성 지원.
 - **Hero + CTA** [hero]: 전체 너비 히어로 섹션 + 중앙 CTA 버튼. 랜딩 페이지 필수 패턴.
 
 ### Anti-Patterns (Design)
-- ⚠ **Form Without Error States**: 에러/성공 상태 없는 폼. 4-state 필수.
-- ⚠ **Shadow Overuse**: 모든 요소에 과도한 drop-shadow. floating 요소만 shadow 허용.
+- ⚠ **Shadow Overuse**: 모든 요소에 과도한 drop-shadow 적용. 시각적 무게감 과부하.
+- ⚠ **Form Without Error States**: 에러/성공 상태 없는 폼. 사용자 피드백 부재로 전환율 저하.
+- ⚠ **Purple-Blue Gradient Hero**: 보라-파랑 그라데이션 히어로 배경. AI 생성 UI의 대표적 클리셰.
 
 ### AI Slop Detection (SLOP-01~07 — MANDATORY real-time check)
 
@@ -184,11 +199,11 @@ If ANY check fails, fix before output. Do not present unchecked code.
 Full rules + code examples → `knowledge-base/anti-ai-slop/` (load on-demand)
 
 ### Category Hints (load on-demand)
-- `layout`: Sidebar + Main Content, Data Table with Sort/Filter
-- `navigation`: Sticky Navigation
-- `card-grid`: 3-Column Feature Grid
-- `animation`: Accessible Motion (reduced-motion)
 - `form`: Floating Label Form
+- `layout`: Sidebar + Main Content
+- `navigation`: Sticky Navigation
+- `card-grid`: 3-Column Feature Grid, Accordion / FAQ
+- `typography`: Typographic Scale System
 
 <!-- AURADKIT:DYNAMIC — volatile, changes per compilation -->
 ---
@@ -197,20 +212,20 @@ Full rules + code examples → `knowledge-base/anti-ai-slop/` (load on-demand)
 
 | Axis | Score |
 |------|-------|
-| color | 5.8/10 |
-| component | 6.1/10 |
-| visualHierarchy | 6.6/10 |
-| motion | 6.7/10 |
-| typography | 7.4/10 |
-| layout | 7.5/10 |
-| spatialRhythm | 7.8/10 |
+| visualHierarchy | 9.1/10 |
+| spatialRhythm | 9.1/10 |
+| typography | 9.1/10 |
+| color | 9.1/10 |
+| motion | 9.1/10 |
+| component | 9.1/10 |
+| layout | 9.2/10 |
 
 Drift: ✓ Low (20/100)
 AI-Slop: ✓ Original (7/100)
 
-> 427 sites · top refs: astro.build, astro.build, docs.github.com, remix.run, docs.anthropic.com, anthropic.com, supabase.com, beehiiv.com
+> 455 sites · top refs: deno.com, magicui.design, zed.dev, astro.build, css-tricks.com, nextui.org, trigger.dev, vastspace.com
 > Truncated? Run `node trainer/dist/index.js compile` · refs: `references/`
 
-*AuraDKit v5.3 · 2026-04-06 · P0+P1 Claude Code Insights*
-<!-- integrity:sha256:manual-edit -->
+*AuraDKit v5.3 · 2026-04-06*
+<!-- integrity:sha256:09a6b6c2a23b -->
 <!-- /AURADKIT ACTIVE -->

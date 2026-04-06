@@ -13,7 +13,7 @@
 ## Spacing Drift
 
 ### [HIGH] 임의 픽셀 간격 사용
-*Occurrences: 75 | Detection: 4px 배수 준수율 < 70%*
+*Occurrences: 85 | Detection: 4px 배수 준수율 < 70%*
 
 3px, 7px, 11px, 13px 등 4px 배수가 아닌 임의 간격값이 산재해 있다.
 
@@ -31,7 +31,7 @@ padding: var(--aurad-space-2) var(--aurad-space-3);  /* 8px 12px */
 
 
 ### [MEDIUM] 과도하게 밀집된 레이아웃
-*Occurrences: 29 | Detection: 평균 margin/padding < 8px*
+*Occurrences: 33 | Detection: 평균 margin/padding < 8px*
 
 평균 간격이 8px 미만으로, 콘텐츠가 답답하게 붙어 있다.
 
@@ -40,7 +40,7 @@ padding: var(--aurad-space-2) var(--aurad-space-3);  /* 8px 12px */
 
 
 ### [MEDIUM] 간격 토큰 과다 (10종 이상)
-*Occurrences: 8 | Detection: 고유 간격값 > 12종*
+*Occurrences: 9 | Detection: 고유 간격값 > 12종*
 
 10가지 이상의 서로 다른 간격값이 사용되어 일관성이 없다.
 
@@ -65,7 +65,7 @@ padding: var(--aurad-space-2) var(--aurad-space-3);  /* 8px 12px */
 ## Typography Drift
 
 ### [HIGH] 4종 이상 폰트 패밀리 혼용
-*Occurrences: 19 | Detection: 고유 font-family > 3종*
+*Occurrences: 20 | Detection: 고유 font-family > 3종*
 
 4가지 이상의 폰트 패밀리가 동시에 사용되어 디자인이 혼란스럽다.
 
@@ -74,7 +74,7 @@ padding: var(--aurad-space-2) var(--aurad-space-3);  /* 8px 12px */
 
 
 ### [HIGH] 폰트 크기 과다 (8종 이상)
-*Occurrences: 7 | Detection: 고유 폰트 크기 > 8종*
+*Occurrences: 9 | Detection: 고유 폰트 크기 > 8종*
 
 8가지 이상의 폰트 크기가 사용되어 시각적 위계가 무너진다.
 
@@ -92,7 +92,7 @@ padding: var(--aurad-space-2) var(--aurad-space-3);  /* 8px 12px */
 
 
 ### [MEDIUM] 너무 좁은 행간 (< 1.3)
-*Occurrences: 60 | Detection: 평균 line-height ratio < 1.3*
+*Occurrences: 67 | Detection: 평균 line-height ratio < 1.3*
 
 행간이 1.3 미만으로 텍스트가 뭉쳐 보이고 가독성이 낮다.
 
@@ -108,7 +108,7 @@ p { line-height: var(--aurad-leading-normal); }  /* 1.5 */
 
 
 ### [MEDIUM] 비표준 폰트 크기 사용
-*Occurrences: 10 | Detection: 모듈러 스케일 준수율 < 60%*
+*Occurrences: 13 | Detection: 모듈러 스케일 준수율 < 60%*
 
 15px, 17px, 22px 등 표준 모듈러 스케일에 없는 크기가 사용된다.
 
@@ -121,7 +121,7 @@ p { line-height: var(--aurad-leading-normal); }  /* 1.5 */
 ## Color Drift
 
 ### [CRITICAL] 하드코딩된 색상값 (HEX/RGB 직접 사용)
-*Occurrences: 9 | Detection: 인라인 스타일 또는 클래스에 HEX/RGB 리터럴 존재*
+*Occurrences: 11 | Detection: 인라인 스타일 또는 클래스에 HEX/RGB 리터럴 존재*
 
 #3b82f6, rgb(59, 130, 246) 등의 리터럴 값이 코드에 직접 사용된다.
 
@@ -139,7 +139,7 @@ background: var(--aurad-surface);
 
 
 ### [HIGH] 고유 색상값 과다 (30종 이상)
-*Occurrences: 9 | Detection: 렌더링된 고유 색상 > 30종*
+*Occurrences: 11 | Detection: 렌더링된 고유 색상 > 30종*
 
 30가지 이상의 서로 다른 색상값이 사용되어 색상 시스템이 없는 것과 같다.
 
@@ -161,7 +161,7 @@ background: var(--aurad-surface);
 ## Radius Drift
 
 ### [MEDIUM] Border-radius 불일치
-*Occurrences: 160 | Detection: 고유 border-radius > 5종 (0 제외)*
+*Occurrences: 172 | Detection: 고유 border-radius > 5종 (0 제외)*
 
 버튼, 카드, 입력 등 각 요소가 서로 다른 border-radius를 사용한다.
 
@@ -180,7 +180,7 @@ background: var(--aurad-surface);
 ## Motion Drift
 
 ### [CRITICAL] prefers-reduced-motion 미적용
-*Occurrences: 239 | Detection: CSS에 prefers-reduced-motion 규칙 없음*
+*Occurrences: 87 | Detection: CSS에 prefers-reduced-motion 규칙 없음*
 
 모든 애니메이션에 접근성 미디어 쿼리가 없다. WCAG 2.1 AA 위반 가능.
 
@@ -199,7 +199,7 @@ background: var(--aurad-surface);
 
 
 ### [HIGH] Layout 속성 애니메이션 (성능 문제)
-*Occurrences: 23 | Detection: transition에 width/height/top/left 포함*
+*Occurrences: 24 | Detection: transition에 width/height/top/left 포함*
 
 width, height, top, left 등 레이아웃을 재계산하는 속성이 애니메이션된다.
 
