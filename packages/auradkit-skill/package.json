@@ -1,0 +1,20 @@
+{
+  "name": "@smorky85/auradkit-skill",
+  "version": "5.3.0",
+  "description": "AuraDKit — Design Intelligence Skill for Claude Code. 455개 사이트 학습 기반 S-Grade UI 생성.",
+  "bin": {
+    "auradkit-skill": "bin/install.js"
+  },
+  "files": [
+    "bin/",
+    "skill/"
+  ],
+  "keywords": ["claude-code", "skill", "design", "ui", "auradkit", "design-system"],
+  "author": "smorky85",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/smorky850612/auradkit.git",
+    "directory": "packages/auradkit-skill"
+  }
+}
