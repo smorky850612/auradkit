@@ -7,7 +7,8 @@
 const fs = require('fs');
 const path = require('path');
 
-const SKILL_DIR = path.join(process.cwd(), '.claude', 'skills', 'auradkit');
+const HOME = process.env.HOME || process.env.USERPROFILE || '';
+const SKILL_DIR = path.join(HOME, '.claude', 'skills', 'auradkit');
 const REF_DIR = path.join(SKILL_DIR, 'references');
 const SRC_DIR = path.join(__dirname, '..', 'skill');
 
